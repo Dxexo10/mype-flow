@@ -1,6 +1,8 @@
 from sqlalchemy import Column, Integer, String, Numeric, Date, Boolean, DateTime, ForeignKey
 from sqlalchemy.sql import func
 from app.core.database import Base
+from sqlalchemy import Column, Integer, String, Date, UniqueConstraint
+from app.core.database import Base
 
 class Empresa(Base):
     __tablename__ = "empresa"
@@ -28,3 +30,13 @@ class Tramite(Base):
     requiere_notaria = Column(Boolean, default=True)
     fecha_inicio = Column(DateTime, server_default=func.now())
     fecha_fin = Column(DateTime)
+
+class HistorialTamano(Base):
+    __tablename__ = "historial_tamano"
+
+    id = Column(Integer, primary_key=True)
+    empresa_id = Column(Integer, ForeignKey("empresa.id"))
+    anio = Column(Integer, nullable=False)
+    tamano = Column(String(20), nullable=False)
+
+    __table_args__ = (UniqueConstraint('empresa_id', 'anio', name='uq_empresa_anio'),)
