@@ -15,46 +15,40 @@ SECTORES = [
     'SIN_DATO'
 ]
 
-def construir_features_transicion(empresa, num_locales: int, area: float, anio: int):
-    """
-    empresa: objeto SQLAlchemy Empresa
-    num_locales, area, anio: vienen de agregaciones/datos que aún no viven en la tabla empresa tal cual
-    """
+def construir_features_transicion(empresa):
     fila = {
-        'area': area,
-        'num_locales': num_locales,
-        'anio': anio,
+        'area': float(empresa.area) if empresa.area is not None else 0.0,
+        'num_locales': empresa.num_locales if empresa.num_locales is not None else 1,
+        'anio': empresa.anio if empresa.anio is not None else 2024,
         'es_formal': int(empresa.es_formal),
     }
     for s in SECTORES:
         fila[f'sector_{s}'] = 1 if empresa.sector == s else 0
-
     return pd.DataFrame([fila])
 
 
-def construir_features_factoring(empresa, num_locales: int, area: float, anio: int):
+def construir_features_factoring(empresa):
     fila = {
-        'area': area,
-        'num_locales': num_locales,
-        'anio': anio,
+        'area': float(empresa.area) if empresa.area is not None else 0.0,
+        'num_locales': empresa.num_locales if empresa.num_locales is not None else 1,
+        'anio': empresa.anio if empresa.anio is not None else 2024,
         'es_formal': int(empresa.es_formal),
         'tamano_pequena': 1 if empresa.tamano == 'pequeña' else 0,
     }
     for s in SECTORES:
         fila[f'sector_{s}'] = 1 if empresa.sector == s else 0
-
     return pd.DataFrame([fila])
 
 
-def predecir_transicion(empresa, num_locales, area, anio):
-    X = construir_features_transicion(empresa, num_locales, area, anio)
-    X = X[MODELO_TRANSICION.feature_names_in_]  # reordena columnas exacto como en entrenamiento
+def predecir_transicion(empresa):
+    X = construir_features_transicion(empresa)
+    X = X[MODELO_TRANSICION.feature_names_in_]
     proba = MODELO_TRANSICION.predict_proba(X)[0][1]
     return float(proba)
 
 
-def predecir_factoring(empresa, num_locales, area, anio):
-    X = construir_features_factoring(empresa, num_locales, area, anio)
+def predecir_factoring(empresa):
+    X = construir_features_factoring(empresa)
     X = X[MODELO_FACTORING.feature_names_in_]
     proba = MODELO_FACTORING.predict_proba(X)[0][1]
     return float(proba)
