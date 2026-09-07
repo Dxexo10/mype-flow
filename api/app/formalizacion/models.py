@@ -8,13 +8,13 @@ class Empresa(Base):
     __tablename__ = "empresa"
 
     id = Column(Integer, primary_key=True)
-    ruc = Column(String(11), unique=True, nullable=False)
+    ruc = Column(String(11), nullable=False)
     razon_social = Column(String(255))
     regimen_societario = Column(String(50))
     tamano = Column(String(20), nullable=False)
     sector = Column(String(100))
     departamento = Column(String(100))
-    distrito = Column(String(100))          # <-- nueva columna
+    distrito = Column(String(100))
     capital_social = Column(Numeric(12, 2))
     fecha_constitucion = Column(Date)
     es_formal = Column(Boolean, default=True)

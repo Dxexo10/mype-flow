@@ -5,8 +5,7 @@ import pandas as pd
 from app.core.database import SessionLocal
 from app.formalizacion.models import Empresa
 
-# Ajusta esta ruta al CSV/parquet que exportaste de Colab con el dataset ya limpio
-df = pd.read_csv("../data/processed/dataset_unificado_limpio.csv")
+df = pd.read_csv("../data/processed/dataset_unificado_limpio.csv", dtype={'ruc': str})
 
 db = SessionLocal()
 
@@ -14,10 +13,19 @@ registros_insertados = 0
 registros_omitidos = 0
 
 for _, row in df.iterrows():
-    ruc = str(row['ruc']) if pd.notna(row['ruc']) else None
-    if ruc is None:
+    ruc = row['ruc']
+    if pd.isna(ruc) or ruc in ['nan', 'None']:
         registros_omitidos += 1
-        continue  # sin RUC, no podemos insertar (es la unique key)
+        continue
+    
+    ruc = str(ruc).strip()
+    if ruc.endswith('.0'):
+        ruc = ruc[:-2]
+    
+    if len(ruc) > 11:  # seguridad extra: si algo sigue mal, lo saltamos y lo reportamos
+        print(f"RUC sospechoso, omitido: {ruc}")
+        registros_omitidos += 1
+        continue
 
     empresa = Empresa(
         ruc=ruc,
@@ -34,8 +42,12 @@ for _, row in df.iterrows():
     db.add(empresa)
     registros_insertados += 1
 
+    if registros_insertados % 500 == 0:
+        db.commit()
+        print(f"Progreso: {registros_insertados} insertados...")
+
 db.commit()
 db.close()
 
-print(f"Insertados: {registros_insertados}")
-print(f"Omitidos (sin RUC): {registros_omitidos}")
+print(f"\nTotal insertados: {registros_insertados}")
+print(f"Total omitidos (sin RUC): {registros_omitidos}")
