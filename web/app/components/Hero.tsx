@@ -1,8 +1,9 @@
+import { ArrowRight, Play, Check } from "lucide-react";
+
 export default function Hero() {
   return (
     <section className="bg-brand-50">
       <div className="max-w-7xl mx-auto px-6 py-16 grid md:grid-cols-2 gap-12 items-center">
-        {/* Columna izquierda */}
         <div>
           <span className="inline-block bg-brand-100 text-brand-700 text-xs font-medium px-3 py-1 rounded-full mb-4">
             Plataforma para micro y pequeñas empresas
@@ -22,22 +23,28 @@ export default function Hero() {
           </p>
 
           <div className="flex gap-4 mb-6">
-            <button className="bg-brand-500 hover:bg-brand-700 text-white font-medium px-6 py-3 rounded-full transition-colors">
-              Comenzar diagnóstico →
+            <button className="flex items-center gap-2 bg-brand-500 hover:bg-brand-700 text-white font-medium px-6 py-3 rounded-full transition-colors">
+              Comenzar diagnóstico <ArrowRight className="w-4 h-4" />
             </button>
-            <button className="border border-gray-300 text-gray-700 font-medium px-6 py-3 rounded-full hover:bg-gray-50 transition-colors">
-              ▷ Ver cómo funciona
+            <button className="flex items-center gap-2 border border-gray-300 text-gray-700 font-medium px-6 py-3 rounded-full hover:bg-gray-50 transition-colors">
+              <Play className="w-4 h-4" /> Ver cómo funciona
             </button>
           </div>
 
           <div className="flex gap-6 text-sm text-gray-500">
-            <span>✓ Datos de demostración</span>
-            <span>✓ Sin instalaciones</span>
-            <span>✓ Diagnóstico en 5 minutos</span>
+            <span className="flex items-center gap-1">
+              <Check className="w-4 h-4 text-green-500" /> Datos de demostración
+            </span>
+            <span className="flex items-center gap-1">
+              <Check className="w-4 h-4 text-green-500" /> Sin instalaciones
+            </span>
+            <span className="flex items-center gap-1">
+              <Check className="w-4 h-4 text-green-500" /> Diagnóstico en 5 minutos
+            </span>
           </div>
         </div>
 
-        {/* Columna derecha: tarjeta demo */}
+        {/* Tarjeta demo (sin cambios respecto a lo que ya tenías) */}
         <div className="bg-white rounded-2xl shadow-lg p-6 border border-brand-100">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2 text-sm text-gray-700">
@@ -72,10 +79,10 @@ export default function Hero() {
             <p className="text-xs text-gray-500 mb-2">Estado de trámites</p>
             <ul className="text-sm space-y-1">
               <li className="flex items-center gap-2 text-gray-700">
-                <span className="text-green-500">✓</span> RUC y régimen tributario
+                <Check className="w-4 h-4 text-green-500" /> RUC y régimen tributario
               </li>
               <li className="flex items-center gap-2 text-gray-700">
-                <span className="text-green-500">✓</span> Registro empresarial
+                <Check className="w-4 h-4 text-green-500" /> Registro empresarial
               </li>
               <li className="flex items-center gap-2 text-gray-700">
                 <span className="text-orange-500">⚠</span> Comprobantes electrónicos

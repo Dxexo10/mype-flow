@@ -29,10 +29,10 @@ const features = [
 
 export default function Features() {
   return (
-    <section className="bg-brand-50 py-16">
+    <section className="bg-[#F8FAFD] py-16 border-t border-gray-100">
       <div className="max-w-7xl mx-auto px-6">
-        <h2 className="text-3xl font-extrabold text-gray-900 mb-2">
-          ¿Qué puedes hacer con MYPE FLOW?
+        <h2 className="text-3xl font-extrabold text-[#324462] mb-2">
+            ¿Qué puedes hacer con MYPE FLOW?
         </h2>
         <p className="text-gray-600 mb-10 max-w-2xl">
           Cuatro capacidades pensadas para empresarios que necesitan claridad,
@@ -50,7 +50,7 @@ export default function Features() {
                 <div className="w-10 h-10 rounded-full bg-brand-100 flex items-center justify-center mb-4">
                   <Icon className="w-5 h-5 text-brand-700" />
                 </div>
-                <h3 className="font-bold text-gray-900 mb-2">{f.title}</h3>
+                <h3 className="font-bold text-[#324462] mb-2">{f.title}</h3>
                 <p className="text-sm text-gray-600">{f.description}</p>
               </div>
             );

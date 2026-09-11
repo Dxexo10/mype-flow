@@ -32,4 +32,5 @@ body {
   --color-brand-300: #8AAEE0;
   --color-brand-500: #638ECB;
   --color-brand-700: #395886;
+  --font-poppins: var(--font-poppins);
 }
