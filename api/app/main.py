@@ -3,10 +3,12 @@ from sqlalchemy import text
 from app.core.database import engine
 from app.scoring.router import router as scoring_router
 from app.analytics.router import router as analytics_router
+from app.formalizacion.router import router as formalizacion_router
 
 app = FastAPI(title="MYPE Flow API")
 app.include_router(scoring_router)
 app.include_router(analytics_router)
+app.include_router(formalizacion_router)
 
 @app.get("/")
 def root():
