@@ -29,3 +29,19 @@ class TramiteResponse(BaseModel):
 
     class Config:
         from_attributes = True
+
+class EmpresaResponse(BaseModel):
+    id: int
+    ruc: str
+    razon_social: Optional[str]
+    tamano: str
+    sector: Optional[str]
+    distrito: Optional[str]
+    departamento: Optional[str]
+    area: Optional[float]
+    num_locales: Optional[int]
+    anio: Optional[int]
+    es_formal: bool
+
+    class Config:
+        from_attributes = True

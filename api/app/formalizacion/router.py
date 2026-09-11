@@ -5,9 +5,10 @@ from app.core.database import get_db
 from app.formalizacion.models import Empresa, Tramite
 from app.formalizacion.schemas import (
     RecomendacionRegimenRequest, RecomendacionRegimenResponse,
-    TramiteCreate, TramiteResponse
+    TramiteCreate, TramiteResponse, EmpresaResponse
 )
 from app.formalizacion import service
+from typing import Optional
 
 router = APIRouter(prefix="/formalizacion", tags=["formalizacion"])
 
@@ -58,3 +59,35 @@ def completar_tramite(tramite_id: int, db: Session = Depends(get_db)):
     db.commit()
     db.refresh(tramite)
     return tramite
+
+@router.get("/empresas", response_model=list[EmpresaResponse])
+def listar_empresas(
+    sector: Optional[str] = None,
+    tamano: Optional[str] = None,
+    distrito: Optional[str] = None,
+    es_formal: Optional[bool] = None,
+    skip: int = 0,
+    limit: int = 50,
+    db: Session = Depends(get_db)
+):
+    query = select(Empresa)
+    if sector:
+        query = query.where(Empresa.sector == sector)
+    if tamano:
+        query = query.where(Empresa.tamano == tamano)
+    if distrito:
+        query = query.where(Empresa.distrito == distrito)
+    if es_formal is not None:
+        query = query.where(Empresa.es_formal == es_formal)
+
+    query = query.offset(skip).limit(limit)
+    empresas = db.execute(query).scalars().all()
+    return empresas
+
+
+@router.get("/empresas/{ruc}", response_model=EmpresaResponse)
+def buscar_empresa_por_ruc(ruc: str, db: Session = Depends(get_db)):
+    empresa = db.execute(select(Empresa).where(Empresa.ruc == ruc)).scalars().first()
+    if not empresa:
+        raise HTTPException(status_code=404, detail="Empresa no encontrada")
+    return empresa
