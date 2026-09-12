@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { ArrowRight, Search } from "lucide-react";
 
 export default function CTASection() {
@@ -28,12 +29,18 @@ export default function CTASection() {
           </div>
 
           <div className="flex flex-col gap-3">
-            <button className="flex items-center justify-center gap-2 bg-brand-500 hover:bg-brand-700 text-white font-medium px-6 py-3 rounded-full transition-colors">
+            <Link
+              href="/dashboard"
+              className="flex items-center justify-center gap-2 bg-brand-500 hover:bg-brand-700 text-white font-medium px-6 py-3 rounded-full transition-colors"
+            >
                 Ir al dashboard <ArrowRight className="w-4 h-4" />
-            </button>
-            <button className="flex items-center justify-center gap-2 border border-gray-300 text-gray-700 font-medium px-6 py-3 rounded-full hover:bg-gray-50 transition-colors">
+            </Link>
+            <Link
+              href="/empresas"
+              className="flex items-center justify-center gap-2 border border-gray-300 text-gray-700 font-medium px-6 py-3 rounded-full hover:bg-gray-50 transition-colors"
+            >
                 <Search className="w-4 h-4" /> Buscar por RUC
-            </button>
+            </Link>
           </div>
         </div>
       </div>

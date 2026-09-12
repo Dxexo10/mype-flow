@@ -198,13 +198,16 @@ export default function Dashboard() {
         </div>
 
         <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">
+          <h2 className="text-lg font-semibold text-[#324462] mb-4">
             Distribución por distrito
           </h2>
+          <p className="text-sm text-gray-500 mb-4">
+            Concentración geográfica de las empresas analizadas.
+          </p>
           <ResponsiveContainer width="100%" height={220}>
             <BarChart data={porDistrito} layout="vertical" margin={{ left: 8 }} barCategoryGap="20%">
-              <CartesianGrid strokeDasharray="3 3" horizontal={false} />
-              <XAxis type="number" />
+              <CartesianGrid strokeDasharray="4 4" horizontal={false} />
+              <XAxis type="number" tickCount={5} />
               <YAxis type="category" dataKey="distrito" width={120} tick={{ fontSize: 12 }} />
               <Tooltip />
               <Bar dataKey="cantidad" fill="#638ECB" barSize={60} radius={[0, 8, 8, 0]} />

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { AlertTriangle, CheckCircle2, Circle } from "lucide-react";
+import { AlertTriangle, CheckCircle2, Circle, Sparkles } from "lucide-react";
 import Header from "../components/Header";
 import {
   recomendarRegimen,
@@ -180,7 +180,7 @@ export default function Formalizacion() {
     <div className="min-h-screen bg-[#F8FAFD]">
       <Header />
       <main className="max-w-7xl mx-auto px-6 py-10">
-        <h1 className="text-3xl font-extrabold text-gray-900">Módulo de formalización</h1>
+        <h1 className="text-3xl font-extrabold text-[#324462]">Módulo de formalización</h1>
         <p className="text-gray-600 mt-2 mb-8">
           Responde cuatro datos clave para conocer el régimen societario
           recomendado y gestiona el avance de tus trámites.
@@ -196,7 +196,7 @@ export default function Formalizacion() {
               <div>
                 <label
                   htmlFor="capital-social"
-                  className="block text-xs text-gray-500 uppercase mb-1.5"
+                  className="block text-sm text-gray-700 font-medium mb-1.5"
                 >
                   Capital social (S/)
                 </label>
@@ -207,13 +207,13 @@ export default function Formalizacion() {
                   value={capitalSocial}
                   onChange={(e) => setCapitalSocial(e.target.value)}
                   placeholder="0"
-                  className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm"
+                  className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-900"
                 />
               </div>
               <div>
                 <label
                   htmlFor="numero-socios"
-                  className="block text-xs text-gray-500 uppercase mb-1.5"
+                  className="block text-sm text-gray-700 font-medium mb-1.5"
                 >
                   Número de socios
                 </label>
@@ -224,7 +224,7 @@ export default function Formalizacion() {
                   value={numeroSocios}
                   onChange={(e) => setNumeroSocios(e.target.value)}
                   placeholder="0"
-                  className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm"
+                  className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-900"
                 />
               </div>
             </div>
@@ -234,7 +234,7 @@ export default function Formalizacion() {
                 <p className="text-sm text-gray-700 mb-2">
                   ¿Cuentas con DNI electrónico?
                 </p>
-                <div className="flex gap-2">
+                <div className="grid grid-cols-2 gap-2">
                   <ToggleButton
                     active={dniElectronico === true}
                     label="Sí"
@@ -252,7 +252,7 @@ export default function Formalizacion() {
                 <p className="text-sm text-gray-700 mb-2">
                   ¿Conoces el régimen SACS?
                 </p>
-                <div className="flex gap-2">
+                <div className="grid grid-cols-2 gap-2">
                   <ToggleButton
                     active={conoceSacs === true}
                     label="Sí"
@@ -270,8 +270,9 @@ export default function Formalizacion() {
             <button
               onClick={obtenerRecomendacion}
               disabled={recomendacionLoading}
-              className="w-full bg-brand-500 hover:bg-brand-700 text-white text-sm font-medium px-4 py-2.5 rounded-lg transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+              className="w-full flex items-center justify-center gap-2 bg-brand-500 hover:bg-brand-700 text-white text-sm font-medium px-4 py-2.5 rounded-lg transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
             >
+              <Sparkles className="w-4 h-4" />
               {recomendacionLoading ? "Consultando..." : "Obtener recomendación"}
             </button>
           </div>
@@ -285,24 +286,31 @@ export default function Formalizacion() {
               <p className="text-red-600">{recomendacionError}</p>
             ) : recomendacion ? (
               <div>
-                <p className="text-2xl font-bold text-brand-700">
-                  {recomendacion.regimen_recomendado}
-                </p>
-                <p className="text-gray-700 mt-3 text-sm leading-relaxed">
-                  {recomendacion.justificacion}
-                </p>
+                <div className="bg-brand-50 rounded-2xl p-5">
+                  <p className="text-xs text-gray-500 uppercase tracking-wide mb-1">
+                    RECOMENDACIÓN
+                  </p>
+                  <p className="text-3xl font-bold text-brand-500">
+                    {recomendacion.regimen_recomendado}
+                  </p>
+                  <p className="text-gray-800 mt-3 text-sm leading-relaxed">
+                    {recomendacion.justificacion}
+                  </p>
+                </div>
                 {recomendacion.barreras_detectadas.length > 0 && (
-                  <ul className="mt-4 space-y-2">
-                    {recomendacion.barreras_detectadas.map((barrera, index) => (
-                      <li
-                        key={index}
-                        className="flex items-start gap-2 text-sm text-amber-700"
-                      >
-                        <AlertTriangle className="w-4 h-4 mt-0.5 shrink-0" />
-                        <span>{barrera}</span>
-                      </li>
-                    ))}
-                  </ul>
+                  <>
+                    <h3 className="text-sm font-semibold text-gray-700 mt-6 mb-2">
+                      Barreras detectadas
+                    </h3>
+                    <ul className="space-y-2">
+                      {recomendacion.barreras_detectadas.map((barrera, index) => (
+                        <li key={index} className="flex items-start gap-2 text-sm">
+                          <AlertTriangle className="w-4 h-4 mt-0.5 shrink-0 text-amber-600" />
+                          <span className="text-gray-700">{barrera}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </>
                 )}
               </div>
             ) : (
@@ -423,7 +431,7 @@ function ToggleButton({
     <button
       type="button"
       onClick={onClick}
-      className={`rounded-lg px-4 py-2 text-sm font-medium transition-colors ${
+      className={`w-full rounded-lg px-4 py-2 text-sm font-medium transition-colors ${
         active
           ? "bg-brand-500 text-white"
           : "border border-gray-200 text-gray-700 bg-white hover:bg-gray-50"

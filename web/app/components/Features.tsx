@@ -29,7 +29,7 @@ const features = [
 
 export default function Features() {
   return (
-    <section className="bg-[#F8FAFD] py-16 border-t border-gray-100">
+    <section id="features" className="bg-[#F8FAFD] py-16 border-t border-gray-100">
       <div className="max-w-7xl mx-auto px-6">
         <h2 className="text-3xl font-extrabold text-[#324462] mb-2">
             ¿Qué puedes hacer con MYPE FLOW?
