@@ -91,18 +91,18 @@ The models (`modelo_transicion.pkl`, `modelo_factoring.pkl`) were trained in Goo
 
 | Capa | Tecnología | Versión |
 | --- | --- | --- |
-| Backend | FastAPI (Python) | (sin fijar, ver `requirements.txt`) |
-| ORM / Migraciones | SQLAlchemy + Alembic | (sin fijar) |
+| Backend | FastAPI (Python) | 0.141.1 |
+| ORM / Migraciones | SQLAlchemy + Alembic | 2.0.52 / 1.19.1 |
 | Base de datos | PostgreSQL (Supabase) | — |
-| Modelos ML | scikit-learn + pandas + joblib | (sin fijar) |
+| Modelos ML | scikit-learn + pandas + joblib | 1.9.0 / 3.0.5 / 1.6.0 |
 | Frontend | Next.js (App Router) | 16.3.4 |
 | Frontend | React | 19.2.8 |
 | Frontend | Tailwind CSS | v4 |
 | Frontend | recharts | ^3.10.1 |
-| Frontend | lucide-react | ^1.44.0 |
+| Frontend | lucide-react | 1.44.0 |
 | Frontend | TypeScript | ^5 |
 
-> `requirements.txt` no fija versiones de paquetes; la compatibilidad de `scikit-learn` entre el entorno de entrenamiento (Colab) y producción está pendiente de pinsear (ver Roadmap).
+> `requirements.txt` ahora fija las versiones exactas instaladas del entorno de API (ver la salida de `pip freeze` del venv).
 
 ---
 
@@ -110,18 +110,18 @@ The models (`modelo_transicion.pkl`, `modelo_factoring.pkl`) were trained in Goo
 
 | Layer | Technology | Version |
 | --- | --- | --- |
-| Backend | FastAPI (Python) | (unpinned, see `requirements.txt`) |
-| ORM / Migrations | SQLAlchemy + Alembic | (unpinned) |
+| Backend | FastAPI (Python) | 0.141.1 |
+| ORM / Migrations | SQLAlchemy + Alembic | 2.0.52 / 1.19.1 |
 | Database | PostgreSQL (Supabase) | — |
-| ML models | scikit-learn + pandas + joblib | (unpinned) |
+| ML models | scikit-learn + pandas + joblib | 1.9.0 / 3.0.5 / 1.6.0 |
 | Frontend | Next.js (App Router) | 16.3.4 |
 | Frontend | React | 19.2.8 |
 | Frontend | Tailwind CSS | v4 |
 | Frontend | recharts | ^3.10.1 |
-| Frontend | lucide-react | ^1.44.0 |
+| Frontend | lucide-react | 1.44.0 |
 | Frontend | TypeScript | ^5 |
 
-> `requirements.txt` does not pin package versions; aligning `scikit-learn` between the training (Colab) and production environments is a pending item (see Roadmap).
+> `requirements.txt` now pins the exact installed versions of the API environment (see the venv `pip freeze` output).
 
 ---
 
@@ -203,26 +203,26 @@ Base URL: `http://127.0.0.1:8000` · Interactive docs (Swagger) at `/docs`.
 
 ## 6. Origen del proyecto y contexto
 
-MYPE Flow está inspirado en una noticia real de **RPP** (artículo de Javier Prialé, actualizado el **29 de agosto de 2026**): *"Formalización mype: Gobierno de Keiko Fujimori prepara gratuidad de trámites y servicios para frenar la informalidad"*.
+MYPE Flow nace de una necesidad concreta: la altísima informalidad empresarial en el Perú y las barreras reales — no solo económicas — que impiden que las micro y pequeñas empresas se formalicen y crezcan.
 
-El Ejecutivo pidió al Congreso **facultades legislativas por 120 días** para modificar la **Ley N.° 32353** (*Ley para la Formalización, Desarrollo y Competitividad de la Micro y Pequeña Empresa*).
+En este contexto, el debate público alrededor de la formalización incluye propuestas como la modificación de la **Ley N.° 32353** (*Ley para la Formalización, Desarrollo y Competitividad de la Micro y Pequeña Empresa*), que contemplaría la gratuidad de trámites y servicios mediante la delegación de **facultades legislativas por 120 días** al Ejecutivo.
 
-> **Importante (transparencia):** esto es una **PROPUESTA**, aún **no** es ley vigente. Todo depende de que el Congreso apruebe las facultades legislativas y de los decretos que luego emita el Ejecutivo. Ninguna parte de MYPE Flow da por hecho ese escenario.
+> **Importante (transparencia):** se trata de una **PROPUESTA**, aún **no** es ley vigente. Depende de que el Congreso apruebe las facultades legislativas y de los decretos que luego emita el Ejecutivo. Ninguna parte de MYPE Flow da por hecho ese escenario.
 
-### Cifras oficiales citadas en el artículo (reales, usadas como contexto)
+### Cifras oficiales que ilustran el problema (reales, usadas como contexto)
 
 - **86.8%** de las MYPE eran informales en 2024 (**86.3%** en 2023).
 - **5.48 millones** de MYPE en 2024: **2.34 millones** formales y **3.14 millones** informales.
 - **Empleo informal en MYPE**: **82.3%** general, **89.7%** en microempresas, **48.1%** en pequeñas empresas.
 - **Matriz de movilidad 2015–2024**: el **95.7%** de las microempresas permaneció como micro, el **4%** pasó a pequeña; el **40.8%** de las pequeñas retrocedió a micro.
 - En **2025** se negociaron **S/ 52,057 millones** en facturas negociables; las MYPE representaron el **84.9%** de los usuarios de factoring.
-- **Caso SACS**: constituir cuesta **S/ 18.70 sin notario**, pero solo **5,298 sociedades** se registraron bajo este régimen entre 2021 y dic. 2024 (**menos del 1%** de las +770,000 empresas constituidas por otros regímenes). La conclusión del artículo: el problema no es el costo, sino 3 barreras reales: **(1)** SACS solo permite constituir en línea, no otros actos societarios; **(2)** exige firma digital, una barrera tecnológica por la baja penetración del DNI electrónico; **(3)** bajo conocimiento del régimen incluso en agencias bancarias.
+- **Caso SACS**: constituir cuesta **S/ 18.70 sin notario**, pero solo **5,298 sociedades** se registraron bajo este régimen entre 2021 y dic. 2024 (**menos del 1%** de las +770,000 empresas constituidas por otros regímenes). Esto muestra que el problema no es el costo, sino 3 barreras reales: **(1)** SACS solo permite constituir en línea, no otros actos societarios; **(2)** exige firma digital, una barrera tecnológica por la baja penetración del DNI electrónico; **(3)** bajo conocimiento del régimen incluso en agencias bancarias.
 
 ### Cómo se mapea MYPE Flow con esas barreras
 
-La plataforma se diseñó 1 a 1 contra las barreras del artículo:
+La plataforma se diseñó 1 a 1 contra esas barreras:
 
-| Barrera del artículo | Solución en MYPE Flow |
+| Barrera | Solución en MYPE Flow |
 | --- | --- |
 | Costos/desconocimiento de trámites y regímenes | Asistente de recomendación de régimen + checklist de trámites paso a paso. |
 | Acceso a financiamiento | Motor de scoring con dos modelos predictivos (transición y factoring). |
@@ -232,26 +232,26 @@ La plataforma se diseñó 1 a 1 contra las barreras del artículo:
 
 ### Project origin and context
 
-MYPE Flow is inspired by a real news story from **RPP** (article by Javier Prialé, updated **August 29, 2026**): *"Formalización mype: Gobierno de Keiko Fujimori prepara gratuidad de trámites y servicios para frenar la informalidad"*.
+MYPE Flow was born from a concrete need: the extremely high business informality in Peru and the real — not only economic — barriers that prevent micro and small enterprises from formalizing and growing.
 
-The Executive requested **120 days of legislative powers** from Congress to amend **Law No. 32353** (*Law for the Formalization, Development and Competitiveness of Micro and Small Enterprises*).
+In this context, the public debate around formalization includes proposals such as amending **Law No. 32353** (*Law for the Formalization, Development and Competitiveness of Micro and Small Enterprises*), which would contemplate free procedures and services through a **120-day delegation of legislative powers** to the Executive.
 
 > **Important (transparency):** this is a **PROPOSAL**, **not** yet current law. It depends on Congress approving the legislative powers and on the decrees the Executive then issues. Nothing in MYPE Flow assumes that scenario.
 
-### Official figures cited in the article (real, used as context)
+### Official figures illustrating the problem (real, used as context)
 
 - **86.8%** of MYPEs were informal in 2024 (**86.3%** in 2023).
 - **5.48 million** MYPEs in 2024: **2.34 million** formal and **3.14 million** informal.
 - **Informal employment in MYPEs**: **82.3%** overall, **89.7%** in micro-enterprises, **48.1%** in small enterprises.
 - **2015–2024 mobility matrix**: **95.7%** of micro-enterprises stayed micro, **4%** moved to small; **40.8%** of small enterprises fell back to micro.
 - In **2025**, **S/ 52,057 million** were traded in negotiable invoices; MYPEs made up **84.9%** of factoring users.
-- **SACS case**: incorporation costs **S/ 18.70 without a notary**, yet only **5,298** companies registered under this régime between 2021 and Dec. 2024 (**less than 1%** of the +770,000 companies incorporated under other régimes). The article's conclusion: the problem is not cost but 3 real barriers: **(1)** SACS only allows online incorporation, not other corporate acts; **(2)** it requires a digital signature, a technological barrier caused by the low penetration of the e-DNI; **(3)** low awareness of the régime, even at bank branches.
+- **SACS case**: incorporation costs **S/ 18.70 without a notary**, yet only **5,298** companies registered under this régime between 2021 and Dec. 2024 (**less than 1%** of the +770,000 companies incorporated under other régimes). This shows the problem is not cost but 3 real barriers: **(1)** SACS only allows online incorporation, not other corporate acts; **(2)** it requires a digital signature, a technological barrier caused by the low penetration of the e-DNI; **(3)** low awareness of the régime, even at bank branches.
 
 ### How MYPE Flow maps to those barriers
 
-The platform was designed 1:1 against the article's barriers:
+The platform was designed 1:1 against those barriers:
 
-| Article barrier | MYPE Flow solution |
+| Barrier | MYPE Flow solution |
 | --- | --- |
 | Costs/lack of awareness of procedures and régimes | Régime recommendation assistant + step-by-step paperwork checklist. |
 | Access to financing | Scoring engine with two predictive models (transition and factoring). |
@@ -419,9 +419,7 @@ The frontend defaults to `http://127.0.0.1:8000` (see `web/lib/api.ts`), so just
 
 ---
 
-## 10. Estado actual y roadmap
-
-### Estado actual
+## 10. Estado actual
 
 Funcional de punta a punta en entorno local:
 
@@ -429,43 +427,31 @@ Funcional de punta a punta en entorno local:
 - **Frontend**: landing page, dashboard analítico, listado y detalle de empresas con scoring visual (gauges) y módulo de formalización (recomendación de régimen + checklist de trámites).
 - Todo conectado a la **API real** — sin datos mock.
 
-### Roadmap pendiente
-
-- [ ] Despliegue en producción: **Render/Fly.io** para la API, **Vercel** para el frontend.
-- [ ] **Docker** + **CI/CD** con GitHub Actions.
-- [ ] **Fijar la versión de scikit-learn** entre el entorno de entrenamiento (Colab) y el de producción.
-
 ---
 
-### Current status and roadmap
+### Current status
 
-**Current status** — fully functional end-to-end in a local environment:
+Fully functional end-to-end in a local environment:
 
 - **Backend**: the 3 modules (`formalizacion`, `scoring`, `analytics`) and the 2 ML models serving real predictions over **~21,160 real companies** loaded into PostgreSQL.
 - **Frontend**: landing page, analytics dashboard, company listing/detail with visual scoring (gauges) and a formalization module (régime recommendation + paperwork checklist).
 - Everything connected to the **real API** — no mock data.
 
-**Pending roadmap**:
-
-- [ ] Production deployment: **Render/Fly.io** for the API, **Vercel** for the frontend.
-- [ ] **Docker** + **CI/CD** with GitHub Actions.
-- [ ] **Pin the scikit-learn version** between the training (Colab) and production environments.
-
 ---
 
-## 11. Autor
+## 10. Autor
 
-**Diego** — estudiante de Ciencias de la Computación en Perú, **7mo ciclo completado**, enfocado en **fintech y desarrollo fullstack**.
+**Diego** — estudiante de Ciencias de la Computación en Perú, enfocado en **fintech y desarrollo fullstack**.
 
-Este es un proyecto de **portafolio individual** con objetivo de postular a **prácticas pre-profesionales en bancos y fintechs peruanas** (BBVA, BCP, Interbank). No es un proyecto grupal ni académico institucional.
+Este es un proyecto de **portafolio individual** con el objetivo de contribuir a soluciones digitales que ayuden a la formalización y el crecimiento de las micro y pequeñas empresas peruanas. No es un proyecto grupal ni académico institucional.
 
 ---
 
 ### Author
 
-**Diego** — Computer Science student in Peru, **completed 7th semester**, focused on **fintech and full-stack development**.
+**Diego** — Computer Science student in Peru, focused on **fintech and full-stack development**.
 
-This is an **individual portfolio project** aimed at applying for **pre-professional internships in Peruvian banks and fintechs** (BBVA, BCP, Interbank). It is not a group or institutional academic project.
+This is an **individual portfolio project** aimed at contributing digital solutions that support the formalization and growth of Peruvian micro and small enterprises. It is not a group or institutional academic project.
 
 ---
 
